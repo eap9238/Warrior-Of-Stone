@@ -2,6 +2,7 @@
 //AUTHOR::Kevin.P.Barnett
 //DATE::Feb.03.2017
 
+import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
 import java.io.File;
@@ -94,5 +95,14 @@ public class Level
         //    returnLevelEntities.add(new Pair<>(c.getURI(), c.getCoordinates()));
 
         return returnLevelEntities;
+    }
+
+    public ArrayList<Rectangle> getCollisionBoxes()
+    {
+        ArrayList<Rectangle> levelCollisionBoxes = new ArrayList<>();
+        for(Block b:this.levelBlocks)
+            levelCollisionBoxes.addAll(b.getCollisionBoxes());
+
+        return levelCollisionBoxes;
     }
 }

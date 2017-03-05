@@ -3,6 +3,7 @@
 //DATE::Feb.03.2017
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -84,9 +85,14 @@ public class WarriorOfStone_Main
                 //   That Is the Final Write to Screen Thing Below    //
                 ////////////////////////////////////////////////////////
 
-                entitesToBeDrawn.addAll(currentLevel.getLevelEntities());
 
-                gfx.update(entitesToBeDrawn);
+                entitesToBeDrawn.addAll(currentLevel.getLevelEntities());
+                ArrayList<Rectangle> collisionBoxes = new ArrayList<>(player.getCollisionBoxes());
+
+                for(Rectangle colBox:currentLevel.getCollisionBoxes())
+                    collisionBoxes.add(colBox);
+
+                gfx.update(entitesToBeDrawn, collisionBoxes);
 
                 if(keyMap.get("Esc"))
                 {

@@ -3,6 +3,7 @@
 //DATE::Feb.03.2017
 
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -11,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -29,6 +31,7 @@ public class Graphics extends Application
     private GraphicsContext graphicsContext;
 
     private ArrayList<Pair<String, Pair<Float, Float>>> entitiesToBeDrawn;
+    private ArrayList<Rectangle> collisionBoxesToBeDrawn;
     private HashMap<String, Image> entityImageMap;
     private HashMap<String, Boolean> keyMap;
 
@@ -49,6 +52,10 @@ public class Graphics extends Application
             this.graphicsContext.drawImage(sprite, coordinatePair.getKey(), coordinatePair.getValue());
         }
 
+        this.graphicsContext.setFill(Color.rgb(255, 102, 0, .5));
+        for(Rectangle colBox:this.collisionBoxesToBeDrawn)
+            this.graphicsContext.fillRect(colBox.getX(), colBox.getY(), colBox.getWidth(), colBox.getHeight());
+
         this.primaryStage.setTitle(SCREEN_TITLE);
         this.primaryStage.setResizable(false);
         this.primaryStage.setScene(this.primaryScene);
@@ -61,7 +68,8 @@ public class Graphics extends Application
      */
     public void registerEntityImage(String URI)
     {
-        this.entityImageMap.put(URI, new Image("file:"+ASSET_PATH+"images\\"+URI));
+        Image img = new Image("file:"+ASSET_PATH+"images\\"+URI);
+        this.entityImageMap.put(URI, new Image("file:"+ASSET_PATH+"images\\"+URI));//, img.getWidth()*2, img.getHeight()*2, false, false));
     }
 
     /**
@@ -80,10 +88,17 @@ public class Graphics extends Application
      * Inputs an arraylist of all objects that are to be drawn and then calls the displayScreen function
      * @param entitiesToBeDrawn
      */
-    public void update(ArrayList<Pair<String, Pair<Float, Float>>> entitiesToBeDrawn)
+    public void update(ArrayList<Pair<String, Pair<Float, Float>>> entitiesToBeDrawn, ArrayList<Rectangle> collisionBoxes)
     {
         this.entitiesToBeDrawn = entitiesToBeDrawn;
+        this.collisionBoxesToBeDrawn = collisionBoxes;
         this.displayScreen();
+    }
+
+    private void zoom()
+    {
+        this.primaryCanvas.setScaleX(2);
+        this.primaryCanvas.setScaleY(2);
     }
 
     @Override
@@ -92,6 +107,7 @@ public class Graphics extends Application
         this.entitiesToBeDrawn = new ArrayList<Pair<String, Pair<Float, Float>>>();
         this.entityImageMap = new HashMap<>();
         this.keyMap = new HashMap<>();
+        this.collisionBoxesToBeDrawn = new ArrayList<>();
     }
 
     @Override
@@ -102,13 +118,18 @@ public class Graphics extends Application
         Group root = new Group();
         this.primaryScene = new Scene(root);
 
-        this.primaryCanvas = new Canvas(640, 480);
+        Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+
+        this.primaryCanvas = new Canvas(screen.getWidth(), screen.getHeight());
         root.getChildren().add(this.primaryCanvas);
+        //root.resize(screen.getWidth(), screen.getHeight());
 
         this.graphicsContext = this.primaryCanvas.getGraphicsContext2D();
 
         this.registerKeyStrokes();
         this.primaryStage.setOnCloseRequest(e -> System.exit(1));
+
+        this.primaryStage.setFullScreen(true);
 
         this.bootGameInstance.GAME_LOOP(this, this.keyMap);
     }

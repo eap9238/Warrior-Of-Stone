@@ -14,6 +14,20 @@ public abstract class Character
     private ArrayList<Rectangle> collisionBoxes;
     public int health, lives;
 
+    public Character()
+    {
+        this.collisionBoxes = new ArrayList<>();
+    }
+
+    public ArrayList<Rectangle> getCollisionBoxes()
+    {
+        return this.collisionBoxes;
+    }
+
+    private void addCollisionBox(float xPosition, float yPosition, float width, float height)
+    {
+        this.collisionBoxes.add(new Rectangle(xPosition, yPosition, width, height));
+    }
 
     public abstract String toString();
 }
