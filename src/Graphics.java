@@ -25,6 +25,9 @@ public class Graphics extends Application
     private final String SCREEN_TITLE = "Warrior of Stone: Well Probably...";
     private final String ASSET_PATH = System.getProperty("user.dir")+"\\assets\\";
 
+    //line//
+    private Rectangle2D screen;
+
     private Stage primaryStage;
     private Scene primaryScene;
     private Canvas primaryCanvas;
@@ -43,7 +46,8 @@ public class Graphics extends Application
     private void displayScreen()
     {
         this.graphicsContext.setFill(Color.WHITESMOKE);
-        this.graphicsContext.fillRect(0, 0, 640, 480);
+        //line//
+        this.graphicsContext.fillRect(0, 0, this.screen.getWidth(), this.screen.getHeight());
 
         for(Pair entity:this.entitiesToBeDrawn)
         {
@@ -118,7 +122,8 @@ public class Graphics extends Application
         Group root = new Group();
         this.primaryScene = new Scene(root);
 
-        Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+        //Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+        this.screen = Screen.getPrimary().getVisualBounds();
 
         this.primaryCanvas = new Canvas(screen.getWidth(), screen.getHeight());
         root.getChildren().add(this.primaryCanvas);
