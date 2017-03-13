@@ -74,6 +74,8 @@ public class Player extends Character
 
     public void moveX()
     {
+        //vertical
+
         //DEBUG ONLY ->
         if(this.playerPositionY >= 418)
         {
@@ -93,8 +95,26 @@ public class Player extends Character
             //stop falling if not falling
         }
 
+        //test for vertical collisions
+
+        /*
+        if (collision with upwards collision box)
+        {
+            this.velocity = 0;
+            this.playerPositionY = /thingupwardscollisionboxiscollidingwith.y/ + /thingupwardcollidingboxiscolidingwith.height/;
+        }
+        else if (collision with downwards collision box)
+        {
+            this.velocity = 0;
+            this.playerPositionY = /thingdownwardscollisionboxiscollidingwith.y/ - this.height;
+            this.falling = false;
+        }
+         */
+
         this.playerPositionY -= this.velocityY;
         //fall
+
+        //horizontal
 
         this.velocityX *= .85;
         //friction (slows when not pressed, but not faster than speeds up
@@ -116,6 +136,8 @@ public class Player extends Character
             this.velocityX = 0;
         }
         //sets max and min speeds
+
+        //test for horizontal collisions
 
         this.playerPositionX += velocityX;
 

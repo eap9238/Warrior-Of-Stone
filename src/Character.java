@@ -24,7 +24,7 @@ public abstract class Character
         return this.collisionBoxes;
     }
 
-    private void addCollisionBox(float xPosition, float yPosition, float width, float height)
+    public void addCollisionBox(float xPosition, float yPosition, float width, float height)
     {
         this.collisionBoxes.add(new Rectangle(xPosition, yPosition, width, height));
     }
