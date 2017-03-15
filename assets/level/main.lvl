@@ -17,6 +17,7 @@ block:dirt_tile.png:336:452:solid
 block:dirt_tile.png:364:452:solid
 block:dirt_tile.png:392:452:solid
 block:dirt_tile.png:420:452:solid
+block:dirt_tile.png:420:424:solid
 player:0:418
 character:human:mainCharacterKun.png:420:418
 character:monster:mainCharacterKun.png:448:418

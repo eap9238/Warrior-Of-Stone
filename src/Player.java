@@ -18,7 +18,7 @@ public class Player extends Character
 
     Player()
     {
-        this.collisionBoxes = new ArrayList<>();
+        super();
         this.health = PLAYER_MAX_HEALTH;
         this.lives = 3;
         this.score = 0;

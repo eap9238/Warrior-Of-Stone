@@ -101,7 +101,7 @@ public class Level
     {
         ArrayList<Rectangle> levelCollisionBoxes = new ArrayList<>();
         for(Block b:this.levelBlocks)
-            levelCollisionBoxes.addAll(b.getCollisionBoxes());
+            levelCollisionBoxes.add(b.getCollisionBox());
 
         return levelCollisionBoxes;
     }

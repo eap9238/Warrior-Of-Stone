@@ -11,22 +11,25 @@ public abstract class Character
 {
     public final int PLAYER_MAX_HEALTH = 100;
 
-    private ArrayList<Rectangle> collisionBoxes;
+    private Rectangle[] collisionBoxes;
     public int health, lives;
 
     public Character()
     {
-        this.collisionBoxes = new ArrayList<>();
+        this.collisionBoxes = new Rectangle[4];
+
+        for(int i=0; i<4; ++i)
+            this.collisionBoxes[i] = new Rectangle(0, 0, 0, 0);
     }
 
     public ArrayList<Rectangle> getCollisionBoxes()
     {
-        return this.collisionBoxes;
-    }
+        ArrayList<Rectangle> outBox = new ArrayList<>();
 
-    public void addCollisionBox(float xPosition, float yPosition, float width, float height)
-    {
-        this.collisionBoxes.add(new Rectangle(xPosition, yPosition, width, height));
+        for(int i=0; i<4; ++i)
+            outBox.add(this.collisionBoxes[i]);
+
+        return outBox;
     }
 
     public abstract String toString();

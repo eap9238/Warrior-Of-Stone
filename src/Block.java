@@ -12,7 +12,7 @@ public class Block
     private String BLOCK_URI;
 
     private Pair<Float, Float> blockCoordinates;
-    private ArrayList<Rectangle> collisionBoxes;
+    private Rectangle collisionBox;
     private String type;
 
     public Block(String[] blockStringArray)
@@ -20,17 +20,12 @@ public class Block
         this.BLOCK_URI = blockStringArray[1];
         this.blockCoordinates = new Pair<>(Float.parseFloat(blockStringArray[2]), Float.parseFloat(blockStringArray[3]));
         this.type = blockStringArray[4];
-        this.collisionBoxes = new ArrayList<>();
+        this.collisionBox = new Rectangle(this.blockCoordinates.getKey(), this.blockCoordinates.getValue(), 28, 28);
     }
 
-    public ArrayList<Rectangle> getCollisionBoxes()
+    public Rectangle getCollisionBox()
     {
-        return this.collisionBoxes;
-    }
-
-    public void addCollisionBox(float xPosition, float yPosition, float width, float height)
-    {
-        this.collisionBoxes.add(new Rectangle(xPosition, yPosition, width, height));
+        return this.collisionBox;
     }
 
     public String getBLOCK_URI()

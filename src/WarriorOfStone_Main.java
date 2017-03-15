@@ -87,7 +87,7 @@ public class WarriorOfStone_Main
 
 
                 entitesToBeDrawn.addAll(currentLevel.getLevelEntities());
-                ArrayList<Rectangle> collisionBoxes = new ArrayList<>(player.getCollisionBoxes());
+                ArrayList<Rectangle> collisionBoxes = new ArrayList(player.getCollisionBoxes());
 
                 for(Rectangle colBox:currentLevel.getCollisionBoxes())
                     collisionBoxes.add(colBox);
