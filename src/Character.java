@@ -11,8 +11,8 @@ public abstract class Character
 {
     public final int PLAYER_MAX_HEALTH = 100;
 
-    private Rectangle[] collisionBoxes;
-    public int health, lives;
+    protected Rectangle[] collisionBoxes; //0:Up 1:Down 2:Left 3:Right
+    protected int health, lives;
 
     public Character()
     {

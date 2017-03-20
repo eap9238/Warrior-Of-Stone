@@ -11,7 +11,6 @@ public class Player extends Character
 {
     private final String SPRITE_URI = "mainCharacterKun.png";
 
-    private ArrayList<Rectangle> collisionBoxes;
     private int score;
     private float playerPositionX, playerPositionY, velocityX, velocityY;
     private boolean left, falling;
@@ -96,6 +95,8 @@ public class Player extends Character
         }
 
         //test for vertical collisions
+
+        // if(this.collisionBoxes[0].intersects(this.collisionBoxes[1].getLayoutBounds()));
 
         /*
         if (collision with upwards collision box)
