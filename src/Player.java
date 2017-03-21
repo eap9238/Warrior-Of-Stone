@@ -120,7 +120,7 @@ public class Player extends Character
         // if(this.collisionBoxes[0].intersects(this.collisionBoxes[1].getLayoutBounds()))
 
         /* drags chara down
-        for (Rectangle collidingbox: getCollisionBoxes()) //collision box set
+        for (Rectangle collidingbox: getCollisionBoxes() ) //collision box set
         {
             if (this.collisionBoxes[0].intersects(collidingbox.getLayoutBounds()))
             {
@@ -163,7 +163,7 @@ public class Player extends Character
         //sets max and min speeds
 
         /* drags chara left
-        for (Rectangle collidingbox: getCollisionBoxes()) //collision box set
+        for (Rectangle collidingbox: getCollisionBoxes() ) //collision box set
         {
             if (this.collisionBoxes[2].intersects(collidingbox.getLayoutBounds()))
             {
