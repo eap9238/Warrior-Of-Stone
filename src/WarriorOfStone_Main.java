@@ -42,17 +42,17 @@ public class WarriorOfStone_Main
 
     private void movePlayer()
     {
-        if(this.keyMap.get("Left"))
+        if(this.keyMap.get("Left") || this.keyMap.get("A"))
         {
             this.player.moveLeft();
         }
-        else if(this.keyMap.get("Right"))
+        else if(this.keyMap.get("Right") || this.keyMap.get("D"))
         {
             this.player.moveRight();
         }
 
         this.player.moveX();
-        if (this.keyMap.get("Up"))
+        if (this.keyMap.get("Up") || this.keyMap.get("W") || this.keyMap.get("Space"))
         {
             this.player.jump();
         }
