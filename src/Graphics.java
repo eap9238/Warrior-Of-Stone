@@ -40,9 +40,10 @@ public class Graphics extends Application
 
     private static WarriorOfStone_Main bootGameInstance;
 
-    /**
+    /*
      * displayScreen takes the compiled information to assemble the scene that is displayed.
      */
+
     private void displayScreen()
     {
         this.graphicsContext.setFill(Color.WHITESMOKE);

@@ -36,6 +36,8 @@ public class Player extends Character
     {
         this.playerPositionX = playerCoordinates.getKey();
         this.playerPositionY = playerCoordinates.getValue();
+
+        setCollisionBoxes();
     }
 
     public void moveLeft()
@@ -71,17 +73,40 @@ public class Player extends Character
         }
     }
 
+    public void setCollisionBoxes()
+    {
+        this.collisionBoxes[0].setX(this.playerPositionX);
+        this.collisionBoxes[0].setY(this.playerPositionY);
+        this.collisionBoxes[0].setHeight(1);
+        this.collisionBoxes[0].setWidth(28);
+
+        this.collisionBoxes[1].setX(this.playerPositionX);
+        this.collisionBoxes[1].setY(this.playerPositionY + 33);
+        this.collisionBoxes[1].setHeight(1);
+        this.collisionBoxes[1].setWidth(28);
+
+        this.collisionBoxes[2].setX(this.playerPositionX);
+        this.collisionBoxes[2].setY(this.playerPositionY);
+        this.collisionBoxes[2].setHeight(34);
+        this.collisionBoxes[2].setWidth(1);
+
+        this.collisionBoxes[3].setX(this.playerPositionX + 27);
+        this.collisionBoxes[3].setY(this.playerPositionY);
+        this.collisionBoxes[3].setHeight(34);
+        this.collisionBoxes[3].setWidth(1);
+    }
+
     public void moveX()
     {
         //vertical
 
-        //DEBUG ONLY ->
+        /* //DEBUG ONLY ->
         if(this.playerPositionY >= 418)
         {
             this.falling = false;
             this.playerPositionY = 418;
         }
-        //DEBUG ONLY <-
+        //DEBUG ONLY <- */
 
         if (this.falling)
         {
@@ -96,21 +121,22 @@ public class Player extends Character
 
         //test for vertical collisions
 
-        // if(this.collisionBoxes[0].intersects(this.collisionBoxes[1].getLayoutBounds()));
+        // if(this.collisionBoxes[0].intersects(this.collisionBoxes[1].getLayoutBounds()))
 
-        /*
-        if (collision with upwards collision box)
+        for (Rectangle collidingbox: getCollisionBoxes() /*collision box set*/)
         {
-            this.velocity = 0;
-            this.playerPositionY = /thingupwardscollisionboxiscollidingwith.y/ + /thingupwardcollidingboxiscolidingwith.height/;
+            if (this.collisionBoxes[0].intersects(collidingbox.getLayoutBounds()))
+            {
+                this.velocityY = 0;
+                this.playerPositionY = (float)(collidingbox.getY() + collidingbox.getHeight());
+            }
+        else if (this.collisionBoxes[1].intersects(collidingbox.getLayoutBounds()))
+            {
+                this.velocityY = 0;
+                this.playerPositionY = (float)(collidingbox.getY() - 34); // second value is the player height
+                this.falling = false;
+            }
         }
-        else if (collision with downwards collision box)
-        {
-            this.velocity = 0;
-            this.playerPositionY = /thingdownwardscollisionboxiscollidingwith.y/ - this.height;
-            this.falling = false;
-        }
-         */
 
         this.playerPositionY -= this.velocityY;
         //fall
@@ -138,11 +164,27 @@ public class Player extends Character
         }
         //sets max and min speeds
 
-        //test for horizontal collisions
+        for (Rectangle collidingbox: getCollisionBoxes() /*collision box set*/)
+        {
+            if (this.collisionBoxes[2].intersects(collidingbox.getLayoutBounds()))
+            {
+                this.velocityX = 0;
+                this.playerPositionX = (float)(collidingbox.getX() + collidingbox.getWidth());
+            }
+            else if (this.collisionBoxes[3].intersects(collidingbox.getLayoutBounds()))
+            {
+                this.velocityX = 0;
+                this.playerPositionX = (float)(collidingbox.getX() - 28); //second number is character width
+            }
+        }
 
         this.playerPositionX += velocityX;
 
         //alters position, called each frame
+
+        setCollisionBoxes();
+
+        //fixes collision
     }
 
     //use left to swap current direction of player
