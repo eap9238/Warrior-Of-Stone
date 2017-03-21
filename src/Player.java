@@ -100,7 +100,7 @@ public class Player extends Character
         this.collisionBoxes[3].setY(this.playerPositionY);
     }
 
-    public void moveX()
+    public void moveX(ArrayList<Rectangle> levelCollisionBoxes)
     {
         //vertical
 
@@ -119,22 +119,22 @@ public class Player extends Character
 
         // if(this.collisionBoxes[0].intersects(this.collisionBoxes[1].getLayoutBounds()))
 
-        /* drags chara down
-        for (Rectangle collidingbox: getCollisionBoxes() ) //collision box set
+        //* drags chara down
+        for (Rectangle collidingbox: levelCollisionBoxes) //collision box set
         {
             if (this.collisionBoxes[0].intersects(collidingbox.getLayoutBounds()))
             {
                 this.velocityY = 0;
-                this.playerPositionY = (float)(collidingbox.getY() + collidingbox.getHeight());
+                this.playerPositionY = (float)(collidingbox.getY() + collidingbox.getHeight() + 1);
             }
-        else if (this.collisionBoxes[1].intersects(collidingbox.getLayoutBounds()))
+            else if (this.collisionBoxes[1].intersects(collidingbox.getLayoutBounds()))
             {
                 this.velocityY = 0;
-                this.playerPositionY = (float)(collidingbox.getY() - 34); // second value is the player height
+                this.playerPositionY = (float)(collidingbox.getY() - 35); // second value is the player height
                 this.falling = false;
             }
         }
-        */
+        //*/
 
         this.playerPositionY -= this.velocityY;
         //fall
@@ -162,21 +162,21 @@ public class Player extends Character
         }
         //sets max and min speeds
 
-        /* drags chara left
-        for (Rectangle collidingbox: getCollisionBoxes() ) //collision box set
+        ///* drags chara left
+        for (Rectangle collidingbox: levelCollisionBoxes) //collision box set
         {
             if (this.collisionBoxes[2].intersects(collidingbox.getLayoutBounds()))
             {
                 this.velocityX = 0;
-                this.playerPositionX = (float)(collidingbox.getX() + collidingbox.getWidth());
+                this.playerPositionX = (float)(collidingbox.getX() + collidingbox.getWidth() + 1);
             }
             else if (this.collisionBoxes[3].intersects(collidingbox.getLayoutBounds()))
             {
                 this.velocityX = 0;
-                this.playerPositionX = (float)(collidingbox.getX() - 28); //second number is character width
+                this.playerPositionX = (float)(collidingbox.getX() - 29); //second number is character width
             }
         }
-        */
+        //*/
 
         this.playerPositionX += velocityX;
 

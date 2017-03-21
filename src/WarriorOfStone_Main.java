@@ -40,7 +40,7 @@ public class WarriorOfStone_Main
         this.player.setInitialPosition(this.currentLevel.getPlayerCoordinates());
     }
 
-    private void movePlayer()
+    private void movePlayer(ArrayList<Rectangle> levelCollisionBoxes)
     {
         if(this.keyMap.get("Left") || this.keyMap.get("A"))
         {
@@ -51,7 +51,8 @@ public class WarriorOfStone_Main
             this.player.moveRight();
         }
 
-        this.player.moveX();
+        this.player.moveX(levelCollisionBoxes);
+
         if (this.keyMap.get("Up") || this.keyMap.get("W") || this.keyMap.get("Space"))
         {
             this.player.jump();
@@ -78,7 +79,7 @@ public class WarriorOfStone_Main
                 ////////////////////////////////////////////////////////
                 entitesToBeDrawn.add(new Pair<>(player.getSPRITE_URI(), player.getPosition()));
 
-                movePlayer();
+                movePlayer(currentLevel.getCollisionBoxes());
 
                 ////////////////////////////////////////////////////////
                 //   Though Keep It Above Here                        //
