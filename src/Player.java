@@ -37,16 +37,21 @@ public class Player extends Character
         this.playerPositionX = playerCoordinates.getKey();
         this.playerPositionY = playerCoordinates.getValue();
 
+        //Up
         this.collisionBoxes[0].setHeight(1);
-        this.collisionBoxes[0].setWidth(28);
+        this.collisionBoxes[0].setWidth(16);
 
+        //Down
         this.collisionBoxes[1].setHeight(1);
-        this.collisionBoxes[1].setWidth(28);
+        this.collisionBoxes[1].setWidth(16);
 
-        this.collisionBoxes[2].setHeight(34);
+
+        //Left
+        this.collisionBoxes[2].setHeight(22);
         this.collisionBoxes[2].setWidth(1);
 
-        this.collisionBoxes[3].setHeight(34);
+        //Right
+        this.collisionBoxes[3].setHeight(22);
         this.collisionBoxes[3].setWidth(1);
 
         setCollisionBoxes();
@@ -87,17 +92,21 @@ public class Player extends Character
 
     public void setCollisionBoxes()
     {
-        this.collisionBoxes[0].setX(this.playerPositionX);
+        //Up
+        this.collisionBoxes[0].setX(this.playerPositionX+6);
         this.collisionBoxes[0].setY(this.playerPositionY);
 
-        this.collisionBoxes[1].setX(this.playerPositionX);
+        //Down
+        this.collisionBoxes[1].setX(this.playerPositionX+6);
         this.collisionBoxes[1].setY(this.playerPositionY + 33);
 
+        //Left
         this.collisionBoxes[2].setX(this.playerPositionX);
-        this.collisionBoxes[2].setY(this.playerPositionY);
+        this.collisionBoxes[2].setY(this.playerPositionY+6);
 
+        //Right
         this.collisionBoxes[3].setX(this.playerPositionX + 27);
-        this.collisionBoxes[3].setY(this.playerPositionY);
+        this.collisionBoxes[3].setY(this.playerPositionY+6);
     }
 
     public void moveX(ArrayList<Rectangle> levelCollisionBoxes)
@@ -207,6 +216,10 @@ public class Player extends Character
     //use left to swap current direction of player
 
     public Pair<Float, Float> getPosition(){return new Pair<>(this.playerPositionX, this.playerPositionY);}
+    public Boolean getFacingDirection()
+    {
+        return this.left;
+    }
 
     public String toString()
     {

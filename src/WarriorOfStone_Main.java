@@ -5,6 +5,7 @@
 import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
+import oracle.jrockit.jfr.StringConstantPool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,7 +69,7 @@ public class WarriorOfStone_Main
 
         ArrayList<Pair<String, Pair<Float, Float>>> entitesToBeDrawn = new ArrayList<>();
 
-        new AnimationTimer()
+        AnimationTimer mainGame = new AnimationTimer()
         {
             public void handle(long time)
             {
@@ -77,7 +78,8 @@ public class WarriorOfStone_Main
                 ////////////////////////////////////////////////////////
                 //      Insert Main Game Information Stoof Below      //
                 ////////////////////////////////////////////////////////
-                entitesToBeDrawn.add(new Pair<>(player.getSPRITE_URI(), player.getPosition()));
+
+                Pair<Pair<String, Boolean>, Pair<Float, Float>> playerPosition = new Pair<>(new Pair<>(player.getSPRITE_URI(), player.getFacingDirection()), player.getPosition());
 
                 movePlayer(currentLevel.getCollisionBoxes());
 
@@ -93,15 +95,14 @@ public class WarriorOfStone_Main
                 for(Rectangle colBox:currentLevel.getCollisionBoxes())
                     collisionBoxes.add(colBox);
 
-                gfx.update(entitesToBeDrawn, collisionBoxes);
+                gfx.update(playerPosition, entitesToBeDrawn, collisionBoxes, currentLevel.getWidth(), currentLevel.getHeight());
 
                 if(keyMap.get("Esc"))
-                {
-                    this.stop();
                     System.exit(0);
-                }
             }
-        }.start();
+        };
+
+        mainGame.start();
     }
 
     public static void main(String[] args)

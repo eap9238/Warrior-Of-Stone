@@ -5,6 +5,7 @@
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -17,8 +18,9 @@ public class Level
     private Level nextLevel;
     private String background;
     private String music;
+    private Float width, height;
     private ArrayList<Block> levelBlocks;
-    private Pair<Float, Float> playerCoordinates;
+    private Pair<Float, Float> initialPlayerCoordinates;
     private ArrayList<Character> levelEntities;
 
     Level()throws Exception
@@ -27,7 +29,7 @@ public class Level
         this.readInFile("main");
     }
 
-    Level(String levelName) throws Exception
+    private Level(String levelName) throws Exception
     {
         if(!levelName.equals("EOG"))
         {
@@ -39,7 +41,7 @@ public class Level
     private void init()
     {
         this.levelBlocks = new ArrayList<>();
-        this.playerCoordinates = new Pair<>(0f, 0f);
+        this.initialPlayerCoordinates = new Pair<>(0f, 0f);
         this.levelEntities = new ArrayList<>();
     }
 
@@ -50,38 +52,62 @@ public class Level
         while(readLevel.hasNext())
         {
             String in = readLevel.nextLine();
-            String[] bufferedIn = in.split(":");
-
-            switch(bufferedIn[0])
+            if(in.matches(".*:.*") || in.matches(".*:.*:.*") || in.matches(".*:.*:.*:.*:.*"))
             {
-                case "nextLevel": this.nextLevel = new Level(bufferedIn[1]);
-                    break;
-                case "background": this.background = bufferedIn[1];
-                    break;
-                case "music": this.music = bufferedIn[1];
-                    break;
-                case "block": this.levelBlocks.add(new Block(bufferedIn));
-                    break;
-                case "player": this.playerCoordinates = new Pair<>(Float.parseFloat(bufferedIn[1]), Float.parseFloat(bufferedIn[2]));
-                    break;
-                case "character":
-                    switch(bufferedIn[1])
-                    {
-                        case "human": this.levelEntities.add(new Human());
-                            break;
-                        case "monster": this.levelEntities.add(new Monster());
-                            break;
-                        case "boss": this.levelEntities.add(new Boss());
-                            break;
-                    }
-                    break;
+                String[] bufferedIn = in.split(":");
+
+                switch(bufferedIn[0])
+                {
+                    case "nextLevel":
+                        this.nextLevel = new Level(bufferedIn[1]);
+                        break;
+                    case "background":
+                        this.background = bufferedIn[1];
+                        break;
+                    case "music":
+                        this.music = bufferedIn[1];
+                        break;
+                    case "dim":
+                        this.width = Float.parseFloat(bufferedIn[1]);
+                        this.height = Float.parseFloat(bufferedIn[2]);
+                        break;
+                    case "block":
+                        this.levelBlocks.add(new Block(bufferedIn));
+                        break;
+                    case "player":
+                        this.initialPlayerCoordinates = new Pair<>(Float.parseFloat(bufferedIn[1]), Float.parseFloat(bufferedIn[2]));
+                        break;
+                    case "character":
+                        switch(bufferedIn[1])
+                        {
+                            case "human":
+                                this.levelEntities.add(new Human());
+                                break;
+                            case "monster":
+                                this.levelEntities.add(new Monster());
+                                break;
+                            case "boss":
+                                this.levelEntities.add(new Boss());
+                                break;
+                        }
+                        break;
+                }
             }
         }
     }
 
+    public Float getWidth()
+    {
+        return this.width;
+    }
+    public Float getHeight()
+    {
+        return height;
+    }
+
     public Pair<Float, Float> getPlayerCoordinates()
     {
-        return this.playerCoordinates;
+        return this.initialPlayerCoordinates;
     }
 
     public ArrayList<Pair<String, Pair<Float, Float>>> getLevelEntities()
