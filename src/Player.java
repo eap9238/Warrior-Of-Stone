@@ -39,19 +39,19 @@ public class Player extends Character
 
         //Up
         this.collisionBoxes[0].setHeight(1);
-        this.collisionBoxes[0].setWidth(16);
+        this.collisionBoxes[0].setWidth(3);
 
         //Down
         this.collisionBoxes[1].setHeight(1);
-        this.collisionBoxes[1].setWidth(16);
+        this.collisionBoxes[1].setWidth(3);
 
 
         //Left
-        this.collisionBoxes[2].setHeight(22);
+        this.collisionBoxes[2].setHeight(3);
         this.collisionBoxes[2].setWidth(1);
 
         //Right
-        this.collisionBoxes[3].setHeight(22);
+        this.collisionBoxes[3].setHeight(3);
         this.collisionBoxes[3].setWidth(1);
 
         setCollisionBoxes();
@@ -79,7 +79,7 @@ public class Player extends Character
     {
         if (!this.falling)
         {
-            this.velocityY = 15;
+            this.velocityY = 10;
             //starts jump
 
             this.playerPositionY -=1;
@@ -93,20 +93,20 @@ public class Player extends Character
     public void setCollisionBoxes()
     {
         //Up
-        this.collisionBoxes[0].setX(this.playerPositionX+6);
+        this.collisionBoxes[0].setX(this.playerPositionX+12);
         this.collisionBoxes[0].setY(this.playerPositionY);
 
         //Down
-        this.collisionBoxes[1].setX(this.playerPositionX+6);
+        this.collisionBoxes[1].setX(this.playerPositionX+12);
         this.collisionBoxes[1].setY(this.playerPositionY + 33);
 
         //Left
         this.collisionBoxes[2].setX(this.playerPositionX);
-        this.collisionBoxes[2].setY(this.playerPositionY+6);
+        this.collisionBoxes[2].setY(this.playerPositionY+15);
 
         //Right
         this.collisionBoxes[3].setX(this.playerPositionX + 27);
-        this.collisionBoxes[3].setY(this.playerPositionY+6);
+        this.collisionBoxes[3].setY(this.playerPositionY+15);
     }
 
     public void moveX(ArrayList<Rectangle> levelCollisionBoxes)
@@ -169,7 +169,17 @@ public class Player extends Character
         {
             this.velocityX = 0;
         }
-        //sets max and min speeds
+        //sets max and min X speeds
+
+        if (this.velocityY > 100)
+        {
+            this.velocityY = 100;
+        }
+        else if (this.velocityY < -10)
+        {
+            this.velocityY = -10;
+        }
+        //sets max and min Y speeds
 
         ///* drags chara left
         for (Rectangle collidingbox: levelCollisionBoxes) //collision box set
