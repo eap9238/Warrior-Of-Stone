@@ -54,6 +54,9 @@ public class Player extends Character
         this.collisionBoxes[3].setHeight(3);
         this.collisionBoxes[3].setWidth(1);
 
+        this.collisionBoxes[4].setHeight(1);
+        this.collisionBoxes[4].setWidth(28);
+
         setCollisionBoxes();
     }
 
@@ -79,7 +82,7 @@ public class Player extends Character
     {
         if (!this.falling)
         {
-            this.velocityY = 10;
+            this.velocityY = 15;
             //starts jump
 
             this.playerPositionY -=1;
@@ -107,6 +110,10 @@ public class Player extends Character
         //Right
         this.collisionBoxes[3].setX(this.playerPositionX + 27);
         this.collisionBoxes[3].setY(this.playerPositionY+15);
+
+        //falling
+        this.collisionBoxes[4].setX(this.playerPositionX);
+        this.collisionBoxes[4].setY(this.playerPositionY + 34);
     }
 
     public void moveX(ArrayList<Rectangle> levelCollisionBoxes)
@@ -128,6 +135,22 @@ public class Player extends Character
 
         // if(this.collisionBoxes[0].intersects(this.collisionBoxes[1].getLayoutBounds()))
 
+        if (this.velocityY > 100)
+        {
+            this.velocityY = 100;
+        }
+        else if (this.velocityY < -10)
+        {
+            this.velocityY = -10;
+        }
+        //sets max and min Y speeds
+
+        this.playerPositionY -= this.velocityY;
+        //fall
+
+        //temp
+        this.falling = true;
+
         //* drags chara down
         for (Rectangle collidingbox: levelCollisionBoxes) //collision box set
         {
@@ -142,11 +165,28 @@ public class Player extends Character
                 this.playerPositionY = (float)(collidingbox.getY() - 35); // second value is the player height
                 this.falling = false;
             }
-        }
-        //*/
+            else if (this.collisionBoxes[4].intersects(collidingbox.getLayoutBounds()))
+            {
+                this.falling = false;
+                //baaaaaaaaaaaaaaaad idea
+            }
+             //outdated code if new idea works
 
-        this.playerPositionY -= this.velocityY;
-        //fall
+            //new idea
+            /*
+            if (this.playerPositionY + 34 > (float)collidingbox.getY())
+            {
+                this.velocityY = 0;
+                this.playerPositionY = (float)collidingbox.getY() - 34;
+                this.falling = false;
+            }
+            else if (this.playerPositionY < (float)(collidingbox.getY() - collidingbox.getHeight()))
+            {
+                this.velocityY = 0;
+                this.playerPositionY = (float)collidingbox.getY() - 34;
+            }
+            */
+        }
 
         //horizontal
 
@@ -171,15 +211,7 @@ public class Player extends Character
         }
         //sets max and min X speeds
 
-        if (this.velocityY > 100)
-        {
-            this.velocityY = 100;
-        }
-        else if (this.velocityY < -10)
-        {
-            this.velocityY = -10;
-        }
-        //sets max and min Y speeds
+        this.playerPositionX += velocityX;
 
         ///* drags chara left
         for (Rectangle collidingbox: levelCollisionBoxes) //collision box set
@@ -192,12 +224,10 @@ public class Player extends Character
             else if (this.collisionBoxes[3].intersects(collidingbox.getLayoutBounds()))
             {
                 this.velocityX = 0;
-                this.playerPositionX = (float)(collidingbox.getX() - 29); //second number is character width
+                this.playerPositionX = (float) (collidingbox.getX() - 29); //second number is character width
             }
         }
         //*/
-
-        this.playerPositionX += velocityX;
 
         //alters position, called each frame
 

@@ -16,9 +16,9 @@ public abstract class Character
 
     public Character()
     {
-        this.collisionBoxes = new Rectangle[4];
+        this.collisionBoxes = new Rectangle[5];
 
-        for(int i=0; i<4; ++i)
+        for(int i=0; i<5; ++i)
             this.collisionBoxes[i] = new Rectangle(0, 0, 0, 0);
     }
 
