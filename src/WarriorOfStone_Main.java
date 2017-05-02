@@ -10,6 +10,10 @@ import oracle.jrockit.jfr.StringConstantPool;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import java.time.Instant;
+
+import static java.time.OffsetTime.now;
+
 public class WarriorOfStone_Main
 {
     private HashMap<String, Boolean> keyMap;
@@ -17,10 +21,13 @@ public class WarriorOfStone_Main
     private Player player;
     private Level currentLevel;
 
+    private GameTiem timeKeeper;
+
     private void initialize(String[] args)
     {
         this.player = new Player();
 
+        this.timeKeeper = new GameTiem();
 
         try{this.loadLevels();}
         catch(Exception e){e.printStackTrace();}
@@ -73,6 +80,9 @@ public class WarriorOfStone_Main
         {
             public void handle(long time)
             {
+                Long deltaTime = timeKeeper.getCurrentTime()-time;
+                timeKeeper.setCurrentTime(time);
+                
                 entitesToBeDrawn.clear();
 
                 ////////////////////////////////////////////////////////

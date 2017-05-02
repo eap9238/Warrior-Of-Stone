@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Warrior-of-Stone:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Warrior_of_Stone_jar</output-path>
+    <root id="archive" name="Warrior-of-Stone.jar">
+      <element id="module-output" name="Warrior-of-Stone" />
+    </root>
+  </artifact>
+</component>
