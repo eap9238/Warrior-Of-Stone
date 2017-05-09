@@ -91,6 +91,10 @@ public class WarriorOfStone_Main
                 ////////////////////////////////////////////////////////
 
 
+                ///////////////////////////////////////////////////////
+                //           Check for opening a menu                //
+                ///////////////////////////////////////////////////////
+
                 entitesToBeDrawn.addAll(currentLevel.getLevelEntities());
                 ArrayList<Rectangle> collisionBoxes = new ArrayList(player.getCollisionBoxes());
 

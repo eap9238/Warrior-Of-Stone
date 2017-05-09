@@ -11,8 +11,11 @@ public abstract class Character
 {
     public final int PLAYER_MAX_HEALTH = 100;
 
+    protected String SPRITE_URI;
+    protected float positionX, positionY, velocityX, velocityY;
     protected Rectangle[] collisionBoxes; //0:Up 1:Down 2:Left 3:Right
     protected int health, lives;
+    protected boolean facingLeft, isFalling;
 
     public Character()
     {
@@ -32,5 +35,20 @@ public abstract class Character
         return outBox;
     }
 
-    public abstract String toString();
+    public Pair<Float, Float> getPosition(){return new Pair<>(this.positionX, this.positionY);}
+    public Boolean getFacingDirection()
+    {
+        return this.facingLeft;
+    }
+
+    public String toString()
+    {
+        return String.format("URI: %s\n" +
+                        "Health: %d\n" +
+                        "Lives: %d" +
+                        "Set Position: (%f, %f)\n", this.SPRITE_URI, this.health, this.lives,
+                this.positionX, this.positionY);
+    }
+
+    public String getSPRITE_URI(){return SPRITE_URI;}
 }

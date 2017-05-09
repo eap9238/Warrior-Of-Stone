@@ -81,15 +81,18 @@ public class Level
                         switch(bufferedIn[1])
                         {
                             case "human":
-                                this.levelEntities.add(new Human());
+                                this.levelEntities.add(new Human(bufferedIn[2], Float.parseFloat(bufferedIn[3]), Float.parseFloat(bufferedIn[4])));
                                 break;
                             case "monster":
-                                this.levelEntities.add(new Monster());
+                                this.levelEntities.add(new Monster(bufferedIn[2], Float.parseFloat(bufferedIn[3]), Float.parseFloat(bufferedIn[4])));
                                 break;
                             case "boss":
                                 this.levelEntities.add(new Boss());
                                 break;
                         }
+                        break;
+                    default:
+                        System.err.println("Level File Format Corrupted");
                         break;
                 }
             }
@@ -112,13 +115,13 @@ public class Level
 
     public ArrayList<Pair<String, Pair<Float, Float>>> getLevelEntities()
     {
-        ArrayList<Pair<String, Pair<Float, Float>>> returnLevelEntities = new ArrayList<Pair<String, Pair<Float,Float>>>();
+        ArrayList<Pair<String, Pair<Float, Float>>> returnLevelEntities = new ArrayList<>();
 
         for(Block b:this.levelBlocks)
             returnLevelEntities.add(new Pair<>(b.getBLOCK_URI(), b.getBlockCoordinates()));
 
-        //for(Character c:this.levelEntities)
-        //    returnLevelEntities.add(new Pair<>(c.getURI(), c.getCoordinates()));
+        for(Character c:this.levelEntities)
+            returnLevelEntities.add(new Pair<>(c.getSPRITE_URI(), c.getPosition()));
 
         return returnLevelEntities;
     }

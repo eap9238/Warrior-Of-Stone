@@ -69,6 +69,5 @@ block:dirt_tile.png:1652:424:solid
 
 player:0:418
 
-character:human:mainCharacterKun.png:420:418
-character:monster:mainCharacterKun.png:448:418
-character:boss:mainCharacterKun.png:476:418
+character:human:mainHumanBo.png:420:390
+character:monster:mainEnemyChan.png:616:390
