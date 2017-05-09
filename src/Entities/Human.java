@@ -1,10 +1,10 @@
-//FILE::Monster.java
+package Entities;//FILE::Entities.Human.java
 //AUTHOR::Kevin.P.Barnett
-//DATE::Feb.21.2017
+//DATE::Feb.03.2017
 
-public class Monster extends Character
+public class Human extends Character
 {
-    public Monster(String url, float positionX, float positionY)
+    public Human(String url, float positionX, float positionY)
     {
         super();
 

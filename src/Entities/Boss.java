@@ -1,4 +1,4 @@
-//FILE::Boss.java
+package Entities;//FILE::Entities.Boss.java
 //AUTHOR::Kevin.P.Barnett
 //DATE::Feb.03.2017
 

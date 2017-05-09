@@ -1,4 +1,4 @@
-//FILE::GameTiem.java
+package BaseEngine;//FILE::GameTiem.java
 //AUTHOR::Kevin.P.Barnett
 //DATE::May.01.2017
 

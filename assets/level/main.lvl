@@ -66,6 +66,7 @@ block:dirt_tile.png:1568:424:solid
 block:dirt_tile.png:1596:424:solid
 block:dirt_tile.png:1624:424:solid
 block:dirt_tile.png:1652:424:solid
+block:dirt_tile.png:1680:390:solid
 
 player:0:418
 

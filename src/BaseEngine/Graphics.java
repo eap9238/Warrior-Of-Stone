@@ -1,4 +1,4 @@
-//FILE::Graphics.java
+package BaseEngine;//FILE::BaseEngine.Graphics.java
 //AUTHOR::Kevin.P.Barnett
 //DATE::Feb.03.2017
 
@@ -10,38 +10,43 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Cell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Scanner;
 
 public class Graphics extends Application
 {
     private final String SCREEN_TITLE = "Warrior of Stone: Well Probably...";
     private final String ASSET_PATH = System.getProperty("user.dir")+"\\assets\\";
-    private final double SCALE_FACTOR = 1.5;
+    private final double SCALE_FACTOR = 3;
 
     //line//
     private Rectangle2D screen;
 
     private Stage primaryStage;
     private Scene primaryScene;
+    private StackPane mainStackPane;
     private ScrollPane primaryScrollPane;
     private Canvas primaryCanvas;
+    private GridPane primaryHUDPane;
     private GraphicsContext graphicsContext;
 
     private Float width, height;
@@ -85,7 +90,7 @@ public class Graphics extends Application
 
         this.graphicsContext.setFill(Color.rgb(255, 102, 0, .5));
         for(Rectangle colBox:this.collisionBoxesToBeDrawn)
-            this.graphicsContext.fillRect(colBox.getX(), colBox.getY(), colBox.getWidth(), colBox.getHeight());
+            this.graphicsContext.fillRect(colBox.getX()*SCALE_FACTOR, colBox.getY()*SCALE_FACTOR, colBox.getWidth()*SCALE_FACTOR, colBox.getHeight()*SCALE_FACTOR);
 
         this.primaryStage.setTitle(SCREEN_TITLE);
         this.primaryStage.setResizable(false);
@@ -99,8 +104,8 @@ public class Graphics extends Application
         Double playerPosition_X = this.playerDrawInformation.getValue().getKey().doubleValue();
         Double playerPosition_Y = this.playerDrawInformation.getValue().getValue().doubleValue();
 
-        this.primaryScrollPane.setHvalue((playerPosition_X - .33*this.screen.getWidth()) * SCALE_FACTOR / (this.width-this.screen.getWidth()));
-        this.primaryScrollPane.setVvalue((playerPosition_Y - .33*this.screen.getHeight()) * SCALE_FACTOR / (this.height-this.screen.getHeight()));
+        this.primaryScrollPane.setHvalue((playerPosition_X - .165*this.screen.getWidth()) * SCALE_FACTOR / (this.width-this.screen.getWidth()));
+        this.primaryScrollPane.setVvalue((playerPosition_Y - .165*this.screen.getHeight()) * SCALE_FACTOR / (this.height-this.screen.getHeight()));
     }
 
     /**
@@ -111,6 +116,21 @@ public class Graphics extends Application
     {
         Image img = new Image("file:"+ASSET_PATH+"images\\"+URI);
         this.entityImageMap.put(URI, new Image("file:"+ASSET_PATH+"images\\"+URI, img.getWidth()*SCALE_FACTOR, img.getHeight()*SCALE_FACTOR, false, false));
+    }
+
+    public void loadFileSpecifiedImages() throws FileNotFoundException
+    {
+        Scanner imageReader = new Scanner(new File(this.ASSET_PATH+"images\\imageURIs.txt"));
+
+        while(imageReader.hasNextLine())
+            this.registerEntityImage(imageReader.nextLine());
+
+        //TEST ARENA//
+        Button test = new Button("");
+        test.setMinSize(45, 45);
+        test.setBackground(new Background(new BackgroundImage(this.entityImageMap.get("lifeContainer.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        this.primaryHUDPane.add(test, 0, 0);
+        //UN-TEST ARENA//
     }
 
     /**
@@ -195,6 +215,8 @@ public class Graphics extends Application
         this.width = width;
         this.height = height;
 
+        this.primaryScrollPane.requestFocus();
+
         this.displayScreen();
     }
 
@@ -210,29 +232,42 @@ public class Graphics extends Application
         this.height = 0f;
     }
 
+    public void configureScrollPane()
+    {
+        this.primaryScrollPane = new ScrollPane(this.primaryCanvas);
+        this.primaryScrollPane.setPrefSize(this.screen.getMaxX(), this.screen.getMaxX());
+
+        this.primaryScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        this.primaryScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception
     {
         this.primaryStage = primaryStage;
 
+        //Set Main Grouping Element
         Group root = new Group();
         this.primaryScene = new Scene(root);
 
-        //Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+        //Get Screen Properties
         this.screen = Screen.getPrimary().getVisualBounds();
 
+        this.mainStackPane = new StackPane();
+
+        //Initialize Visual Componenents
         this.primaryCanvas = new Canvas(0, 0);
+        this.primaryHUDPane = new GridPane();
 
-        this.primaryScrollPane = new ScrollPane(this.primaryCanvas);
-        this.primaryScrollPane.setPrefSize(screen.getWidth(), screen.getHeight());
+        configureScrollPane();
 
-        this.primaryScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        this.primaryScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        registerKeyStrokes();
 
-        this.registerKeyStrokes();
-        root.getChildren().add(this.primaryScrollPane);
+        this.mainStackPane.getChildren().add(this.primaryScrollPane);
+        this.mainStackPane.getChildren().add(this.primaryHUDPane);
+
+        root.getChildren().add(this.mainStackPane);
         this.disableScroll();
-
 
         this.graphicsContext = this.primaryCanvas.getGraphicsContext2D();
 

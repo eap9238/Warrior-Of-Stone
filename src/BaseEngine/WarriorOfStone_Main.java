@@ -1,13 +1,18 @@
-//FILE::WarriorOfStone_Main.java
+package BaseEngine;//FILE::BaseEngine.WarriorOfStone_Main.java
 //AUTHOR::Kevin.P.Barnett, Eleanor.A.Post
 //DATE::Feb.03.2017
 
+import Entities.*;
+import World.Level;
 import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import static java.time.OffsetTime.now;
 
@@ -28,11 +33,16 @@ public class WarriorOfStone_Main
         Graphics.load(args, this);
     }
 
-    private void registerImages()
+    private void registerImages() throws FileNotFoundException
     {
+        //Load Assests Specified in the Images Folder
+        this.gfx.loadFileSpecifiedImages();
+
+        /*
         this.gfx.registerEntityImage(this.player.getSPRITE_URI());
         for(Pair<String, Pair<Float, Float>> entity:this.currentLevel.getLevelEntities())
             this.gfx.registerEntityImage(entity.getKey());
+        */
     }
 
     private void loadLevels() throws Exception
@@ -65,7 +75,12 @@ public class WarriorOfStone_Main
         this.gfx = gfx;
         this.keyMap = keyMap;
 
-        this.registerImages();
+        try{this.registerImages();}
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Failed to Load Images");
+            System.exit(-1);
+        }
 
         ArrayList<Pair<String, Pair<Float, Float>>> entitesToBeDrawn = new ArrayList<>();
 

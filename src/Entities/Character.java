@@ -1,4 +1,4 @@
-//FILE::Monster.java
+package Entities;//FILE::Entities.Monster.java
 //AUTHOR::Kevin.P.Barnett
 //DATE::Feb.03.2017
 

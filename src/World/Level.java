@@ -1,13 +1,15 @@
-//FILE::Level.java
+package World;//FILE::World.Level.java
 //AUTHOR::Kevin.P.Barnett
 //DATE::Feb.03.2017
 
+import Entities.Boss;
+import Entities.Character;
+import Entities.Human;
+import Entities.Monster;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
-import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,7 +25,7 @@ public class Level
     private Pair<Float, Float> initialPlayerCoordinates;
     private ArrayList<Character> levelEntities;
 
-    Level()throws Exception
+    public Level()throws Exception
     {
         this.init();
         this.readInFile("main");
@@ -92,7 +94,7 @@ public class Level
                         }
                         break;
                     default:
-                        System.err.println("Level File Format Corrupted");
+                        System.err.println("World.Level File Format Corrupted");
                         break;
                 }
             }

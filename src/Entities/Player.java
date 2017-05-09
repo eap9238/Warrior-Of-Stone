@@ -1,4 +1,4 @@
-//FILE::Player.java
+package Entities;//FILE::Entities.Player.java
 //AUTHOR::Kevin.P.Barnett
 //DATE::Feb.03.2017
 
@@ -11,7 +11,7 @@ public class Player extends Character
 {
     private int score;
 
-    Player()
+    public Player()
     {
         super();
         this.SPRITE_URI = "mainCharacterKun.png";
