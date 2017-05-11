@@ -20,7 +20,7 @@ public class Block
         this.BLOCK_URI = blockStringArray[1];
         this.blockCoordinates = new Pair<>(Float.parseFloat(blockStringArray[2]), Float.parseFloat(blockStringArray[3]));
         this.type = blockStringArray[4];
-        this.collisionBox = new Rectangle(this.blockCoordinates.getKey(), this.blockCoordinates.getValue(), 28, 28);
+        this.collisionBox = new Rectangle(this.blockCoordinates.getKey()+1, this.blockCoordinates.getValue()+1, 26, 26);
     }
 
     public Rectangle getCollisionBox()

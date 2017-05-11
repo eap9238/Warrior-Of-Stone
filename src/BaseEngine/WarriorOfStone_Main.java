@@ -53,6 +53,10 @@ public class WarriorOfStone_Main
 
     private void movePlayer(ArrayList<Rectangle> levelCollisionBoxes)
     {
+        if (this.keyMap.get("Up") || this.keyMap.get("W") || this.keyMap.get("Space"))
+        {
+            this.player.jump();
+        }
         if(this.keyMap.get("Left") || this.keyMap.get("A"))
         {
             this.player.moveLeft();
@@ -63,11 +67,6 @@ public class WarriorOfStone_Main
         }
 
         this.player.moveX(levelCollisionBoxes);
-
-        if (this.keyMap.get("Up") || this.keyMap.get("W") || this.keyMap.get("Space"))
-        {
-            this.player.jump();
-        }
     }
 
     public void GAME_LOOP(Graphics gfx, HashMap<String, Boolean> keyMap)
@@ -81,6 +80,8 @@ public class WarriorOfStone_Main
             System.out.println("Failed to Load Images");
             System.exit(-1);
         }
+
+        this.gfx.buildHUD();
 
         ArrayList<Pair<String, Pair<Float, Float>>> entitesToBeDrawn = new ArrayList<>();
 

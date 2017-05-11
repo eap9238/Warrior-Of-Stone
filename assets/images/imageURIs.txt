@@ -3,3 +3,5 @@ lifeContainer.png
 mainCharacterKun.png
 mainEnemyChan.png
 mainHumanBo.png
+statusBar.png
+healthBar.gif

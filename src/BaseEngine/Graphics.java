@@ -12,8 +12,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Cell;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
@@ -59,13 +61,12 @@ public class Graphics extends Application
 
     private static WarriorOfStone_Main bootGameInstance;
 
-    /*
+    /**
      * displayScreen takes the compiled information to assemble the scene that is displayed.
      */
-
     private void displayScreen()
     {
-        this.graphicsContext.setFill(Color.WHITESMOKE);
+        this.graphicsContext.setFill(Color.grayRgb(50));
         //line//
         this.graphicsContext.fillRect(0, 0, this.width, this.height);
 
@@ -88,9 +89,9 @@ public class Graphics extends Application
 
         this.updateScreenPosition();
 
-        this.graphicsContext.setFill(Color.rgb(255, 102, 0, .5));
+        /*this.graphicsContext.setFill(Color.rgb(255, 102, 0, .5));
         for(Rectangle colBox:this.collisionBoxesToBeDrawn)
-            this.graphicsContext.fillRect(colBox.getX()*SCALE_FACTOR, colBox.getY()*SCALE_FACTOR, colBox.getWidth()*SCALE_FACTOR, colBox.getHeight()*SCALE_FACTOR);
+            this.graphicsContext.fillRect(colBox.getX()*SCALE_FACTOR, colBox.getY()*SCALE_FACTOR, colBox.getWidth()*SCALE_FACTOR, colBox.getHeight()*SCALE_FACTOR);*/
 
         this.primaryStage.setTitle(SCREEN_TITLE);
         this.primaryStage.setResizable(false);
@@ -124,13 +125,47 @@ public class Graphics extends Application
 
         while(imageReader.hasNextLine())
             this.registerEntityImage(imageReader.nextLine());
+    }
 
-        //TEST ARENA//
-        Button test = new Button("");
-        test.setMinSize(45, 45);
-        test.setBackground(new Background(new BackgroundImage(this.entityImageMap.get("lifeContainer.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        this.primaryHUDPane.add(test, 0, 0);
-        //UN-TEST ARENA//
+    public void buildHUD()
+    {
+        //Define Padding
+        HBox padding = new HBox();
+        padding.setMinSize(10, 10);
+
+        //Create StackPane for the Health Animation
+        StackPane healthPane = new StackPane();
+
+        //For adding Health
+        Button statusBar = new Button();
+        statusBar.setMinSize(405, 135);
+        statusBar.setBackground(new Background(new BackgroundImage(this.entityImageMap.get("statusBar.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+
+        Button healthBar = new Button();
+        healthBar.setMinSize(405, 135);
+        healthBar.setBackground(new Background(new BackgroundImage(this.entityImageMap.get("healthBar.gif"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+
+        healthPane.getChildren().add(statusBar);
+        healthPane.getChildren().add(healthBar);
+
+        HBox lifeContainerPadding = new HBox();
+        lifeContainerPadding.setMinSize(0, 10);
+        HBox lifeContainers = new HBox();
+        lifeContainers.setSpacing(10);
+        for(int i=0; i<3; i++)
+        {
+            //For adding Life Containers
+            Button lifeContainer = new Button();
+            lifeContainer.setMinSize(45, 45);
+            lifeContainer.setBackground(new Background(new BackgroundImage(this.entityImageMap.get("lifeContainer.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+
+            lifeContainers.getChildren().add(lifeContainer);
+        }
+
+        this.primaryHUDPane.add(padding, 0, 0);
+        this.primaryHUDPane.add(healthPane, 1, 1);
+        this.primaryHUDPane.add(lifeContainerPadding, 1, 2);
+        this.primaryHUDPane.add(lifeContainers, 1, 3);
     }
 
     /**
@@ -208,9 +243,6 @@ public class Graphics extends Application
 
         this.primaryCanvas.setWidth(width);
         this.primaryCanvas.setHeight(height);
-
-        //this.primaryScrollPane.setHmax(width);
-        //this.primaryScrollPane.setVmax(height);
 
         this.width = width;
         this.height = height;
