@@ -2,6 +2,7 @@ package Entities;//FILE::Entities.Player.java
 //AUTHOR::Kevin.P.Barnett
 //DATE::Feb.03.2017
 
+import BaseEngine.DeltaTime;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
@@ -80,7 +81,7 @@ public class Player extends Character
     {
         if (!this.isFalling)
         {
-            this.velocityY = 15;
+            this.velocityY = 10;
             //starts jump
 
             this.positionY -=1;
@@ -143,7 +144,7 @@ public class Player extends Character
         }
         //sets max and min Y speeds
 
-        this.positionY -= this.velocityY;
+        this.positionY -= this.velocityY * DeltaTime.getDeltaTime();
         //fall
 
         //temp
@@ -188,7 +189,7 @@ public class Player extends Character
 
         //horizontal
 
-        this.velocityX *= .85;
+        this.velocityX *= .75;
         //friction (slows when not pressed, but not faster than speeds up
 
         if (this.velocityX > 5)
@@ -209,7 +210,7 @@ public class Player extends Character
         }
         //sets max and min X speeds
 
-        this.positionX += velocityX;
+        this.positionX += velocityX * DeltaTime.getDeltaTime();;
 
         ///* drags chara left
         for (Rectangle collidingbox: levelCollisionBoxes) //collision box set

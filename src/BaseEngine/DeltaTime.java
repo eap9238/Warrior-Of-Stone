@@ -24,6 +24,6 @@ public class DeltaTime
 
     public static Long getDeltaTime()
     {
-        return deltaTime;
+        return deltaTime / 10000000;
     }
 }
