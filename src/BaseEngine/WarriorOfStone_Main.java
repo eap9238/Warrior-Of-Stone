@@ -53,6 +53,7 @@ public class WarriorOfStone_Main
 
     private void movePlayer(ArrayList<Rectangle> levelCollisionBoxes)
     {
+        //ATTN: Should switch statement?
         if (this.keyMap.get("Up") || this.keyMap.get("W") || this.keyMap.get("Space"))
         {
             this.player.jump();

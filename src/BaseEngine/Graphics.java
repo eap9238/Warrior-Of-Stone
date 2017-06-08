@@ -66,7 +66,7 @@ public class Graphics extends Application
      */
     private void displayScreen()
     {
-        this.graphicsContext.setFill(Color.grayRgb(50));
+        this.graphicsContext.setFill(Color.LIGHTBLUE);
         //line//
         this.graphicsContext.fillRect(0, 0, this.width, this.height);
 

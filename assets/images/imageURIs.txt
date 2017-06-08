@@ -1,6 +1,7 @@
 dirt_tile.png
 lifeContainer.png
 mainCharacterKun.png
+MCKruncycle.gif
 mainEnemyChan.png
 mainHumanBo.png
 statusBar.png

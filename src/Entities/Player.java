@@ -15,7 +15,8 @@ public class Player extends Character
     public Player()
     {
         super();
-        this.SPRITE_URI = "mainCharacterKun.png";
+        //this.SPRITE_URI = "mainCharacterKun.png";
+        this.SPRITE_URI = "MCKruncycle.gif";
 
         this.health = PLAYER_MAX_HEALTH;
         this.lives = 3;
@@ -81,7 +82,7 @@ public class Player extends Character
     {
         if (!this.isFalling)
         {
-            this.velocityY = 10;
+            this.velocityY = 9;
             //starts jump
 
             this.positionY -=1;
@@ -121,7 +122,7 @@ public class Player extends Character
 
         if (this.isFalling)
         {
-            this.velocityY = this.velocityY - (float)0.8;
+            this.velocityY = this.velocityY - (float)0.6;
             //use gravity
         }
         else
