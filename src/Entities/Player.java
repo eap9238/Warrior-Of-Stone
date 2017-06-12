@@ -82,7 +82,7 @@ public class Player extends Character
     {
         if (!this.isFalling)
         {
-            this.velocityY = 9;
+            this.velocityY = 6;
             //starts jump
 
             this.positionY -=1;
@@ -90,6 +90,10 @@ public class Player extends Character
 
             this.isFalling = true;
             //begin isFalling
+        }
+        else
+        {
+            this.velocityY += 0.3;
         }
     }
 
@@ -122,7 +126,7 @@ public class Player extends Character
 
         if (this.isFalling)
         {
-            this.velocityY = this.velocityY - (float)0.6;
+            this.velocityY = this.velocityY - (float)0.75;
             //use gravity
         }
         else
