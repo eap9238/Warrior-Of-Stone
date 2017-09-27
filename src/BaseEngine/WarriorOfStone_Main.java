@@ -2,17 +2,16 @@ package BaseEngine;//FILE::BaseEngine.WarriorOfStone_Main.java
 //AUTHOR::Kevin.P.Barnett, Eleanor.A.Post
 //DATE::Feb.03.2017
 
+import BaseEngine.Graphics.Graphics;
 import Entities.*;
 import World.Level;
 import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 import static java.time.OffsetTime.now;
 

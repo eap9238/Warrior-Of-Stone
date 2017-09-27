@@ -1,10 +1,12 @@
-package BaseEngine;//FILE::BaseEngine.Graphics.java
+package BaseEngine.Graphics;//FILE::BaseEngine.Graphics.Graphics.java
 //AUTHOR::Kevin.P.Barnett
 //DATE::Feb.03.2017
 
+import BaseEngine.WarriorOfStone_Main;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -89,9 +91,16 @@ public class Graphics extends Application
 
         this.updateScreenPosition();
 
-        /*this.graphicsContext.setFill(Color.rgb(255, 102, 0, .5));
+        //Debug
+        if(keyMap.get("F3"))
+        {
+            //this.buildDebugHUD();
+            System.out.println(String.format("Scroll Value X: %f\nScroll Value Y: %f\n", this.primaryScrollPane.getHvalue(), this.primaryScrollPane.getVvalue()));
+        }
+
+        this.graphicsContext.setFill(Color.rgb(255, 102, 0, .5));
         for(Rectangle colBox:this.collisionBoxesToBeDrawn)
-            this.graphicsContext.fillRect(colBox.getX()*SCALE_FACTOR, colBox.getY()*SCALE_FACTOR, colBox.getWidth()*SCALE_FACTOR, colBox.getHeight()*SCALE_FACTOR);*/
+            this.graphicsContext.fillRect(colBox.getX()*SCALE_FACTOR, colBox.getY()*SCALE_FACTOR, colBox.getWidth()*SCALE_FACTOR, colBox.getHeight()*SCALE_FACTOR);
 
         this.primaryStage.setTitle(SCREEN_TITLE);
         this.primaryStage.setResizable(false);
